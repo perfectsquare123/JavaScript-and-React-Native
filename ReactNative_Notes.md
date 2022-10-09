@@ -17,23 +17,51 @@ REFER HERE: [Documentations](https://reactnative.dev/docs/components-and-apis)
 3. `<Button>`
     - we don't use it like above by adding caption between opening and closing tags
     - its a self-closing element
+    - does not support `style`
     - add title
-    ```json
+    ```js
     <Button title='Tap me!'/>
     ```
 
 4. `<TextInput>`
-    ```json
-    <TextInput placeholder='Your Course Goal!'/>
+    ```js
+    <TextInput placeholder='Your Course Goal!' onChangeText={function}/>
     ```
-    
+    - don't add () after the function, because in this case it will run immediately when the APP renders
+    - only execute whenever the text changes in this input
+
 
 ## Styling
 
 1. `style =`
     - not all supported, only `<View>`, `<Text>` etc.
     - format: `<Text style={{object: properties},{...}}>`
-    ```json 
+    ```js
     <Text style={{margin: 16, borderWidth: 1, borderColor: 'red', padding: 16}}>
     ```
     - however, not a good idea to lump all tgt, best to seperate the JSX code and styling code
+    - create objects inside `const styles = StyleSheet.create({})`
+    - ex.
+    ```js
+    const styles = StyleSheet.create({
+        dummy: {margin: 16, 
+                borderWidth: 1, 
+                borderColor: 'red', 
+                padding: 16,}
+    })
+    ```
+    - how ro access?
+    ```js
+    <Text style={styles.dummy}>
+    ```
+
+## Flexbox
+```js
+ dummy = {flex: 1,      // this means the proportion this container it will takes
+                        // the idea is like a fraction
+          flexDirection: 'row',     // default -- 'coloumn'
+          justifyContent: 'flex-start',
+          alignItems: 'flex-start',}
+```
+
+
