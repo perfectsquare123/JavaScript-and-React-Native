@@ -64,4 +64,22 @@ REFER HERE: [Documentations](https://reactnative.dev/docs/components-and-apis)
           alignItems: 'flex-start',}
 ```
 
+## UseState
+- updating a state variable always **replaces** it instead of merging it.
+
+What does calling `useState` do?
+- It declares a “state variable”.
+- **“preserve”** some values between the function calls
+- `useState` is a new way to use the exact same capabilities that `this.state` provides in a class.
+
+What do we pass to `useState` as an argument?
+- only argument to the useState() Hook is the **initial state**.
+- ex. want number -- argument: pass _0_ as initial state
+- if want to store two different values in state, call `useState()` twice.
+
+What does `useState` return?
+- returns a pair of values: the current state and a function that updates it
+
+
+
 
