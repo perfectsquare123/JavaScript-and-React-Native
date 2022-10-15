@@ -96,17 +96,81 @@ i) Android: corners can be rounded <br>
 ii) IOS: does not support rounded corner => border radius no effect <br>
 (how to solve? round text in a `<View>`, put style and and key in it => underlying element => translate into element that support corner for both platform => `<Text>` now is nested element => styling is now applied to more versatile `<View>` element) <br>
 
-=> but now the text is black colour
-**LESSON:** style don't cascade =》does not inherit style from acenstor
+=> but now the text is black colour <br>
+**LESSON:** style don't cascade => does not inherit style from acenstor
 
 ## Scrolling
-1. <Scrollview>
-    > Add <Scrollview> to make the section can be scroll
+1. `<Scrollview>`
+    > Add `<Scrollview>` to make the section can be scroll
     - default `<View>` is not scrollable, oppose to web
     - but it applies on the section of that container which will change the spacing/ flex => add `<View>` outside encapsulate the `<Scrollview>` to fix the set height
 
-2. <Scrollview> vs <FlatList>
-(a) 
+2. `<Scrollview>` vs `<FlatList>`
+(a) `<Scrollview>`
+- renders all child items (regarding the size => performance issues for long list ex. 1000000 items)
+- good for limited amount of content, fix end point
+```js
+    ...currentCourseGoals, enteredGoalText
+```
+```js
+    </View> 
+    <View style={styles.goalsContainer}>
+    <ScrollView>
+        {courseGoals.map((goal) => (
+        <View style={styles.goalItem} key={goal}>
+            <Text style={styles.goalText}>{goal}</Text>
+        </View>
+        ))}
+    </ScrollView>
+    </View>
+```
+
+(b) `<FlatList>`
+- good for dynamic list
+- internally only renders the items that is presentable on screen, remaining items will only be rendered lazily as they are needed as the user is scrolling
+- has **threshold**, only render will close to it
+- (remove）so no more need _mapping_
+- （add 2 prop) 1. data prop ex. data={coourseGoal}
+
+**Two main ways of adding keys to these list items**
+1. turn data values from *primitive values* like strings into *objects*
+```js
+    ...currentCourseGoals, 
+    {text: enteredGoalText, key: Math.random().toString()}
+    // to generate unique key
+    // now every item in CourseGoal is an object with text and key property
+```
+ - flat list will automatically look for such key, to be use as key for item to be rendered
+```js
+    <View style={styles.goalsContainer}>
+        <FlatList 
+          data={courseGoals} 
+          renderItem={(itemData) => {
+            return (
+              <View style={styles.goalItem}>
+                <Text style={styles.goalText}>{itemData.item.text}</Text>
+              </View>
+            );
+        }} 
+        alwaysBounceVertical={false}
+        />
+    </View>
+
+    // {itemData.item.text} -- add a .text to dive into the text property, since now item is an object dy with text and key as property
+```
+- **NOTE** if we dont have property name key, cuz we getting data from an API, can't influence its shape, and don't want to trasnform it because flat list need key property
+    - we can change the `key` to some other parameter, which we know is unique, such as `id`
+    ```js
+    ...currentCourseGoals, 
+    {text: enteredGoalText, id: Math.random().toString()}
+    ```
+    - then in the flat list, we add `keyExtractor` where the function takes in 2 parameters -- item & index
+    ```js
+    keyExtractor={(item, index) => {
+        return item.id;
+    }}
+    ```
+
 
 
 
