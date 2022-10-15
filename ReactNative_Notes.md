@@ -80,6 +80,37 @@ What do we pass to `useState` as an argument?
 What does `useState` return?
 - returns a pair of values: the current state and a function that updates it
 
+```js
+// outputting a list of data
+{courseGoals.map((goal) => <Text>{goal}</Text>)}
+// every item in the list should receive a key prop -- uniquely identifies the individual list item
+{courseGoals.map((goal) => <Text key={goal}>{goal}</Text>)}
+// every key shud be unique, although might have repetitive input, but for now is fine
+
+```
+
+## Platform-specific styling
+ex. when applying the style directly onto the <text>, the round corner doesn't show in IOS. <br>
+=> the text component is translated by React Native to a fitting native widget a native UI element <br>
+i) Android: corners can be rounded <br>
+ii) IOS: does not support rounded corner => border radius no effect <br>
+(how to solve? round text in a `<View>`, put style and and key in it => underlying element => translate into element that support corner for both platform => `<Text>` now is nested element => styling is now applied to more versatile `<View>` element) <br>
+
+=> but now the text is black colour
+**LESSON:** style don't cascade =》does not inherit style from acenstor
+
+## Scrolling
+1. <Scrollview>
+    > Add <Scrollview> to make the section can be scroll
+    - default `<View>` is not scrollable, oppose to web
+    - but it applies on the section of that container which will change the spacing/ flex => add `<View>` outside encapsulate the `<Scrollview>` to fix the set height
+
+2. <Scrollview> vs <FlatList>
+(a) 
+
+
+
+
 
 
 
