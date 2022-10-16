@@ -105,7 +105,7 @@ ii) IOS: does not support rounded corner => border radius no effect <br>
     - default `<View>` is not scrollable, oppose to web
     - but it applies on the section of that container which will change the spacing/ flex => add `<View>` outside encapsulate the `<Scrollview>` to fix the set height
 
-2. `<Scrollview>` vs `<FlatList>`
+2. `<Scrollview>` vs `<FlatList>` <br>
 (a) `<Scrollview>`
 - renders all child items (regarding the size => performance issues for long list ex. 1000000 items)
 - good for limited amount of content, fix end point
@@ -170,6 +170,23 @@ ii) IOS: does not support rounded corner => border radius no effect <br>
         return item.id;
     }}
     ```
+
+## Pressable & Touchable
+```js
+import { Touchable, Pressable } from 'react-native';
+
+// encapsulate them around the component that wish to be pressed
+<Pressable><Pressable/>
+<Touchable><Touchable/>
+```
+
+## Deleting item
+use `arrayName.filter()` 
+- a built-in method that can call on array
+- return a new array, which old array minus all the items we filtered out
+- "filter" itself take a function that have to return 
+    - **True** -- item is kept 
+    - or **False** -- item is dropped
 
 
 
