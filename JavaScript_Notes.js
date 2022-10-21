@@ -419,3 +419,102 @@ const MATH_CONSTANTS = {
     PI: 3.142
 };
 Object.freeze(MATH_CONSTANTS);
+
+// Arrow function
+// use for anonymous fucntion (without name)
+// [normal]
+var magic = function(){
+    return new Date();
+}
+// [shorten with arrow function] -- return one value
+const Magic = () => new Date();
+
+// [arrow] -- passing parameters
+const myConccat = (arr1, arr2) => arr1.concat(arr2);
+
+// [arrow] -- Higher Order ie. map, filter, reduce...
+// when one func takes another func as parameter, good time to use array function
+// want to filter out positive integer and then square them
+const squareList = (arr) => {
+    const squaredIntegers = arr.filter( num => Number.isInteger(num) && num > 0).map(x => x*x);
+    return squaredIntegers;
+}
+
+// Default parameters
+const incre = (function() {
+    // setting default value 'value = 1'
+    return function incre(number, value = 1){
+        return number + value;
+    };
+})();
+// console.log(incre(5,2));
+// console.log(incre(5));      // so if no pass in the second parameter, it will take the initalized value ie 1
+
+// Rest operator (...)
+// convert everything that's passed in into one array and the array called args
+const sum = (function() {
+    // instead of sum(x,y,z)
+    return function sum(...args){
+        //const args = [x,y,z];     // dont need this line anymore
+        return args.reduce((a,b) => a+b, 0);
+    };
+})();
+// now can have any number of arguments
+console.log(sum(1,2,3,4));    // 6
+
+// Spread operator (...)
+// expands an already existing array, or spreads it out into individual parts
+// can only use it in an argument to a function or in a array literal
+const arr1 = ['jan','feb','mar'];
+let arr2;
+(function(){
+    //arr2 = arr1;    // arr2 = ['potato','feb','mar']
+    // make arr2 equals to all of contents of arr1
+    arr2 = [...arr1];   // arr2 = ['jan','feb','mar']
+    arr1[0] = 'potato'
+})();
+
+// destructing assignment
+// special syntax for neatly assigning values taken directly from an object to a variable
+var voxel = {x: 1, y: 7, z: 8};
+const {x: a, y:b, z: c} = voxel;    // copying the value of x, y, z into a,b,c
+// const {tmr : tempOfTmr} = avgTemp;       // get tmr field from the avgTemp object and assign it to the tempOfTmr variable
+
+// nested destructing assignment
+const forecast = {
+    today: {min: 21, max: 90},
+    tmr: {min: 35, max: 100}
+}
+const { tmr : { max : maxOfTmr}} = forecast;
+
+// assigning varaible with destructing
+// assignment for array goes by order
+const [x,y, , z] = [1,2,3,4,5,6];       // skipping the 3rd element
+let a=8, b=6;
+(() => {
+    [a,b] = [b,a]
+}) ();
+
+// use rest operating + destructing assignment
+function removeFirstTwo(list){
+    const[ , , ...arr] = list;      // skipping the first 2 elements do nothing, then copy the remaining ones
+}
+
+// use destucting assignment to pass an object as a function's parameters
+// cuz usually when getting information from API, there's a lot of info that we do not really need so instead fetching all of them we fetch the property that we want will do
+const stats = {
+    max: 123,
+    min: 23,
+    standard_deviation: 12.2,
+    mode: 80,
+    average: 78
+}
+
+const half = (function(){
+    //return fucntion half (stats)
+    return function half ({max, min}){
+        // return (stats.max + stats.min)/2
+        return (max + min)/ 2;
+    }
+})(); 
+console.log(half(stats))
